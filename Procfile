@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/sample-frontend-agora -Dhttp.port=1234 -Dhttp.address=127.0.0.1
+web: target/universal/stage/bin/play-rest-api -Dhttp.port=1234 -Dhttp.address=127.0.0.1
