@@ -10,4 +10,12 @@ class HomeController extends Controller {
   def index = Action { implicit request =>
     Ok(views.html.index())
   }
+
+  def vote = Action { implicit request=>
+    Ok(views.html.vote())
+  }
+
+  def login = Action{ implicit request =>
+    Ok(views.html.login())
+  }
 }
