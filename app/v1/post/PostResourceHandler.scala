@@ -63,7 +63,7 @@ class PostResourceHandler @Inject()(
   private def createPostResource(p: PostData): PostResource = {
   val uri = MongoClientURI(${MONGODB_URI})
   val mongoClient =  MongoClient(uri)
-  val db = mongoClient("semicolon")
+  val db = mongoClient("heroku_3qzdlb02")
   val collection = db("task")
   val dbObject = {
    val builder1 = MongoDBObject.newBuilder
