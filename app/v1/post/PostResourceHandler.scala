@@ -1,7 +1,7 @@
 package v1.post
 
 import javax.inject.{Inject, Provider}
-
+import com.mongodb.casbah.Imports._
 import scala.concurrent.{ExecutionContext, Future}
 
 import play.api.libs.json._
@@ -9,7 +9,7 @@ import play.api.libs.json._
 /**
   * DTO for displaying post information.
   */
-case class PostResource(id: String, link: String, candidate: String, ballots: String, method: String, winner: String, table: String)
+case class PostResource(id: String, link: String, candidate: String, method: String, winner: String, table: String)
 
 object PostResource {
 
@@ -22,7 +22,6 @@ object PostResource {
         "id" -> post.id,
         "link" -> post.link,
         "candidate" -> post.candidate,
-        "ballots" -> post.ballots,
         "method" -> post.method,
         "winner" -> post.winner,
         "table" -> post.table
@@ -39,7 +38,7 @@ class PostResourceHandler @Inject()(
     postRepository: PostRepository)(implicit ec: ExecutionContext) {
 
   def create(postInput: PostFormInput): Future[PostResource] = {
-    val data = PostData(PostId("999"), postInput.candidate, postInput.ballots,postInput.method,postInput.winner,postInput.table)
+    val data = PostData(PostId("999"), postInput.candidate,postInput.method,postInput.winner,postInput.table)
     // We don't actually create the post, so return what we have
     postRepository.create(data).map { id =>
       createPostResource(data)
@@ -62,7 +61,21 @@ class PostResourceHandler @Inject()(
   }
 
   private def createPostResource(p: PostData): PostResource = {
-    PostResource(p.id.toString, routerProvider.get.link(p.id), p.candidate, p.ballots, p.method, p.winner, p.table)
+    val mongoClient =  MongoClient()
+    val db = mongoClient("election")
+    val collection = db("task")
+    val dbObject = {
+     val builder1 = MongoDBObject.newBuilder
+     builder1 += "Id" -> p.id.toString
+     builder1 += "Candidate" -> p.candidate
+     builder1 += "Methods" -> p.method
+     builder1 += "winner" -> p.winner
+     builder1 += "Table" ->  p.table
+     builder1.result
+   }
+   // insert the DBObject to MongoDB
+    collection.save(dbObject)
+    PostResource(p.id.toString, routerProvider.get.link(p.id), p.candidate, p.method, p.winner, p.table)
   }
 
 }

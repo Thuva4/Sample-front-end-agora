@@ -11,7 +11,13 @@ libraryDependencies += "net.codingwell" %% "scala-guice" % "4.1.0"
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test
 libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.2.2" % Test
 libraryDependencies += "io.gatling" % "gatling-test-framework" % "2.2.2" % Test
-    
+resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
+
+
+libraryDependencies += "org.mongodb" %% "casbah" % "3.1.1"
+
+libraryDependencies += "com.novus" %% "salat" % "1.9.9"
+
 // The Play project itself
 lazy val root = (project in file("."))
   .enablePlugins(Common, PlayScala, GatlingPlugin)

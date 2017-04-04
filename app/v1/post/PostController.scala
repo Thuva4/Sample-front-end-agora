@@ -8,7 +8,7 @@ import play.api.mvc._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-case class PostFormInput(candidate: String, ballots: String,method: String,winner: String,table: String)
+case class PostFormInput(candidate: String,method: String,winner: String,table: String)
 
 /**
   * Takes HTTP requests and produces JSON.
@@ -24,7 +24,6 @@ class PostController @Inject()(
     Form(
       mapping(
         "candidate" -> text,
-        "ballots" ->  text,
         "method" -> text,
         "winner" -> text,
         "table" -> text

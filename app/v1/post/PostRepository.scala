@@ -4,7 +4,7 @@ import javax.inject.{Inject, Singleton}
 
 import scala.concurrent.Future
 
-final case class PostData(id: PostId, candidate: String, ballots: String, method: String, winner: String, table: String)
+final case class PostData(id: PostId, candidate: String, method: String, winner: String, table: String)
 
 class PostId private (val underlying: Int) extends AnyVal {
   override def toString: String = underlying.toString
@@ -37,11 +37,11 @@ class PostRepositoryImpl @Inject() extends PostRepository {
   private val logger = org.slf4j.LoggerFactory.getLogger(this.getClass)
 
   private val postList = List(
-    PostData(PostId("1"), "title 1", "blog post 1","title 1", "blog post 1", "blog post 1"),
-    PostData(PostId("2"), "title 2", "blog post 2","title 2", "blog post 2", "blog post 2"),
-    PostData(PostId("3"), "title 3", "blog post 3","title 3", "blog post 3", "blog post 3"),
-    PostData(PostId("4"), "title 4", "blog post 4","title 4", "blog post 4", "blog post 4"),
-    PostData(PostId("5"), "title 5", "blog post 5","title 5", "blog post 5", "blog post 5")
+    PostData(PostId("1"), "title 1", "blog post 1","title 1", "blog post 1"),
+    PostData(PostId("2"), "title 2", "blog post 2","title 2", "blog post 2"),
+    PostData(PostId("3"), "title 3", "blog post 3","title 3", "blog post 3"),
+    PostData(PostId("4"), "title 4", "blog post 4","title 4", "blog post 4"),
+    PostData(PostId("5"), "title 5", "blog post 5","title 5", "blog post 5")
   )
 
   override def list(): Future[Iterable[PostData]] = {
