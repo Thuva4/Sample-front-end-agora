@@ -61,8 +61,9 @@ class PostResourceHandler @Inject()(
   }
 
   private def createPostResource(p: PostData): PostResource = {
-    val mongoClient =  MongoClient()
-    val db = mongoClient("election")
+    val uri = MongoClientURI("#############")
+    val mongoClient =  MongoClient(uri)
+    val db = mongoClient("semicolon")
     val collection = db("task")
     val dbObject = {
      val builder1 = MongoDBObject.newBuilder
